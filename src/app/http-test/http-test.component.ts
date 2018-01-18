@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class HttpTestComponent implements OnInit {
 
-    tulos = 'Moro';
+    tulos = 'Moro';  // asetettu merkkijonoarvo muuttujalle tulos
 
     constructor(private http: HttpClient) {
 
@@ -21,7 +21,7 @@ export class HttpTestComponent implements OnInit {
 
         this.http.get<Myinterface>('assets/package.json').subscribe(data => {
             console.log(data);   // tarkastellaan sisältöä consolessa
-            this.tulos = data.license;
+            this.tulos = data.license; // this.tulos hakee uuden arvon lisencen (string) nimen perusteella
         });
     }
 
