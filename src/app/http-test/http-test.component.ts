@@ -13,9 +13,9 @@ export class HttpTestComponent implements OnInit {
     // http://media.mw.metropolia.fi/wbma/docs/
 
     tulos = 'Moro';  // asetettu merkkijonoarvo muuttujalle tulos
-    apitulos = 'Moro taas'; // arvo muuttujalle apitulos
-    apiosoite = 'http://media.mw.metropolia.fi/wbma';
 
+    apiosoite = 'http://media.mw.metropolia.fi/wbma';
+    apitulos = 'moi taas';
     constructor(private http: HttpClient) {
 
     }
@@ -38,15 +38,17 @@ export class HttpTestComponent implements OnInit {
         });
     }
 
-    getBusData () {   // haetaan
-        this.http.get(this.busosoite).subscribe( data => {
-           console.log(data);
+    getFromApi2 () {
+        this.http.get(this.apiosoite + '/media').subscribe( data => {
+            console.log(data[0].filename);
+            this.apitulos = this.kuvaosoite + data[0].filename;
         });
     }
 
     ngOnInit() {  // kutsutaan täällä metodeja
         this.getJson();
         this.getFromApi();
+        this.getFromApi2();
     }
 
 }
