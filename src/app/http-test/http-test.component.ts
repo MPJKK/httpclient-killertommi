@@ -8,13 +8,19 @@ import {HttpClient} from '@angular/common/http';
 })
 export class HttpTestComponent implements OnInit {
 
+    // apiosoite = 'http://media.mw.metropolia.fi/wbma';
+    kuvaosoite = 'http://media.mw.metropolia.fi/wbma/uploads/';
+    // http://media.mw.metropolia.fi/wbma/docs/
+
     tulos = 'Moro';  // asetettu merkkijonoarvo muuttujalle tulos
+    apitulos = 'Moro taas'; // arvo muuttujalle apitulos
+    apiosoite = 'http://media.mw.metropolia.fi/wbma';
 
     constructor(private http: HttpClient) {
 
     }
 
-    getJson() {
+    getJson() {   // getJson-metodi
         interface Myinterface {
             license: string;
         }
@@ -25,8 +31,22 @@ export class HttpTestComponent implements OnInit {
         });
     }
 
-    ngOnInit() {  // kutsutaan täällä metodia getJson
+    getFromApi () { // this method fetches data from api of choice task B
+        this.http.get(this.apiosoite + '/media').subscribe( data => {
+           console.log(data[0].filename);
+           this.apitulos = this.kuvaosoite + data[0].filename;
+        });
+    }
+
+    getBusData () {   // haetaan
+        this.http.get(this.busosoite).subscribe( data => {
+           console.log(data);
+        });
+    }
+
+    ngOnInit() {  // kutsutaan täällä metodeja
         this.getJson();
+        this.getFromApi();
     }
 
 }
